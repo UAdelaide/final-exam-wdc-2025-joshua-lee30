@@ -1,6 +1,9 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #ff00ff;
+  color: yellow;
+  font-family: Comic Sans MS, cursive;
+  animation: blink 1s infinite alternate;
+  text-align: center;
 }
 
 a {
