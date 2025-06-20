@@ -9,3 +9,29 @@ body {
 a {
   color: #00B7FF;
 }
+
+@keyframes blink {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.dog-section {
+  margin-top: 300px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+
+img {
+  width: 500px;
+  height: 500px;
+  border: 10px dashed green;
+}
+
+button {
+  font-size: 24px;
+  background-color: red;
+  color: white;
+  padding: 20px;
+  margin: 50px;
+}
