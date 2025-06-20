@@ -13,11 +13,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(session({
-    secret: 'dog_walking_service_secret',
+    secret: 'dog_walk_service_secret',
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false }
-}
+}));
 
 let db;
 
