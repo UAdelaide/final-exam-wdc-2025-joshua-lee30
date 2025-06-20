@@ -21,7 +21,7 @@ let db;
             password: ''
         });
 
-        await
+        await connection.query('CREATE DATABASE IF NOT EXISTS')
     }
 })
 
