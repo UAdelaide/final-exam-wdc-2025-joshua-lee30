@@ -100,10 +100,10 @@ let db;
       ((SELECT dog_id FROM Dogs WHERE name = 'Bella'), '2025-06-10 09:30:00', 45, 'Beachside Ave', 'accepted')
     `);
 
-        console.log('Database setup complete.');
-    }   catch (err) {
-        console.error('Error setting up database:', err);
     }
+  } catch (err) {
+    console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
+  }
 })();
 
 
