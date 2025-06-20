@@ -130,6 +130,8 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/api/users', userRoutes);
+
 app.get('/api/dogs', async (req, res) => {
     try {
         const [rows] = await db.execute(`
