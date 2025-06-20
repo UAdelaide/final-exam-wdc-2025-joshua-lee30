@@ -20,6 +20,8 @@ let db;
             user: 'root',
             password: ''
         });
+
+        await
     }
 })
 
