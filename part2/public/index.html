@@ -52,6 +52,7 @@
 
   <script>
     const { createApp } = Vue;
+
     createApp({
       data() {
         return {
@@ -62,34 +63,56 @@
         };
       },
       methods: {
-        async login() {
+        async handleLogin() {
           try {
             const res = await fetch('/api/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                username: this.username,
-                password: this.password
-              })
+              body: JSON.stringify({ username: this.username, password: this.password })
             });
+
             if (!res.ok) {
-              throw new Error('Invalid credentials');
+              alert('Login failed.');
+              return;
             }
+
             const data = await res.json();
-            sessionStorage.setItem('user', JSON.stringify(data));
             if (data.role === 'owner') {
               window.location.href = 'owner-dashboard.html';
             } else if (data.role === 'walker') {
               window.location.href = 'walker-dashboard.html';
+            } else {
+              alert('Unknown user role.');
             }
           } catch (err) {
-            this.error = err.message;
+            console.error(err);
+            alert('Error logging in.');
           }
+        }
+      },
+      async mounted() {
+        try {
+          const dogRes = await fetch('/api/dogs');
+          const dogData = await dogRes.json();
+
+          const dogsWithPhotos = await Promise.all(dogData.map(async dog => {
+            const imgRes = await fetch('https://dog.ceo/api/breeds/image/random');
+            const imgData = await imgRes.json();
+            return {
+              ...dog,
+              photo: imgData.message
+            };
+          }));
+
+          this.dogs = dogsWithPhotos;
+        } catch (err) {
+          console.error('Failed to load dogs:', err);
         }
       }
     }).mount('#app');
   </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
