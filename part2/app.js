@@ -114,16 +114,16 @@ let db;
 })();
 
 app.get('/api/dogs', async (req, res) => {
-    try {
-        const [rows] = await db.execute(`
-      SELECT d.name AS dog_name, d.size, u.username AS owner_username
+  try {
+    const [rows] = await db.execute(`
+      SELECT d.dog_id, d.name AS dog_name, d.size, d.owner_id
       FROM Dogs d
-      JOIN Users u ON d.owner_id = u.user_id
     `);
-        res.json(rows);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch dogs' });
-    }
+    res.json(rows);
+  } catch (err) {
+    console.error('Failed to fetch dogs:', err);
+    res.status(500).json({ error: 'Failed to fetch dogs' });
+  }
 });
 
 app.get('/api/walkrequests/open', async (req, res) => {
