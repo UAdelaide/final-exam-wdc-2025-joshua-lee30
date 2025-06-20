@@ -166,18 +166,6 @@ app.get('/api/walkers/summary', async (req, res) => {
     }
 });
 
-app.post('/api/login', async (req, res) => {
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-        return res.status(400).json({ error: 'Username and password are requited.' });
-    }
-
-    try {
-        const
-    }
-})
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app;
