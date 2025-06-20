@@ -12,7 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use session()
+app.use(session({
+secret: 'replace_this_with_a_secure_secret', // Change this in production
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Set true if HTTPS
+}
 
 let db;
 
