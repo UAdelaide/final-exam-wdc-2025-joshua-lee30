@@ -38,6 +38,7 @@ router.get('/me', (req, res) => {
 // POST login (dummy version)
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
+  const db = req.db || require('../models/db');
 
   try {
     const [rows] = await db.query(`
