@@ -13,8 +13,19 @@
     <h1 class="mb-4 text-primary">{{ message }}</h1>
     <p class="lead">Connect with trusted walkers for your beloved dog!</p>
 
-    <a href="owner-dashboard.html" class="btn btn-outline-primary me-2">Owner Dashboard</a>
-    <a href="walker-dashboard.html" class="btn btn-outline-success">Walker Dashboard</a>
+       <form @submit.prevent="login" class="mb-4" style="max-width: 400px;">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input v-model="username" type="text" class="form-control" id="username" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input v-model="password" type="password" class="form-control" id="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+
+    <div v-if="error" class="alert alert-danger">{{ error }}</div>
   </div>
 
   <script>
@@ -22,8 +33,37 @@
     createApp({
       data() {
         return {
-          message: 'Welcome to the Dog Walking Service!'
+          message: 'Welcome to the Dog Walking Service!',
+          username: '',
+          password: '',
+          error: ''
         };
+      },
+      methods: {
+        async login() {
+          try {
+            const res = await fetch('/api/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                username: this.username,
+                password: this.password
+              })
+            });
+            if (!res.ok) {
+              throw new Error('Invalid credentials');
+            }
+            const data = await res.json();
+            sessionStorage.setItem('user', JSON.stringify(data)); // store session info
+            if (data.role === 'owner') {
+              window.location.href = 'owner-dashboard.html';
+            } else if (data.role === 'walker') {
+              window.location.href = 'walker-dashboard.html';
+            }
+          } catch (err) {
+            this.error = err.message;
+          }
+        }
       }
     }).mount('#app');
   </script>
