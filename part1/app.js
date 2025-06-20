@@ -15,7 +15,9 @@ let db;
 
 (async () => {
     try {
-        const connection = 
+        const connection = await mysql.createConnection({
+            
+        })
     }
 })
 
