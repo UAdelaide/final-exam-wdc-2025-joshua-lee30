@@ -42,7 +42,7 @@ let db;
       )
     `);
 
-    await db.execute(`
+        await db.execute(`
       CREATE TABLE IF NOT EXISTS Dogs (
         dog_id INT AUTO_INCREMENT PRIMARY KEY,
         owner_id INT NOT NULL,
@@ -52,7 +52,7 @@ let db;
       )
     `);
 
-    await db.execute(`
+        await db.execute(`
       CREATE TABLE IF NOT EXISTS WalkRequests (
         request_id INT AUTO_INCREMENT PRIMARY KEY,
         dog_id INT NOT NULL,
@@ -65,7 +65,7 @@ let db;
       )
     `);
 
-    await db.execute(`
+        await db.execute(`
       CREATE TABLE IF NOT EXISTS WalkRatings (
         rating_id INT AUTO_INCREMENT PRIMARY KEY,
         request_id INT NOT NULL,
@@ -81,34 +81,34 @@ let db;
       )
     `);
 
-    // Seed Users
-    await db.execute(`
+        // Seed Users
+        await db.execute(`
       INSERT IGNORE INTO Users (username, email, password_hash, role) VALUES
       ('alice123', 'alice@example.com', 'hashed123', 'owner'),
       ('bobwalker', 'bob@example.com', 'hashed456', 'walker'),
       ('carol123', 'carol@example.com', 'hashed789', 'owner')
     `);
 
-    // Seed Dogs
-    await db.execute(`
+        // Seed Dogs
+        await db.execute(`
       INSERT IGNORE INTO Dogs (owner_id, name, size) VALUES
       ((SELECT user_id FROM Users WHERE username = 'alice123'), 'Max', 'medium'),
       ((SELECT user_id FROM Users WHERE username = 'carol123'), 'Bella', 'small')
     `);
 
-    // Seed WalkRequests
-    await db.execute(`
+        // Seed WalkRequests
+        await db.execute(`
       INSERT IGNORE INTO WalkRequests (dog_id, requested_time, duration_minutes, location, status) VALUES
       ((SELECT dog_id FROM Dogs WHERE name = 'Max'), '2025-06-10 08:00:00', 30, 'Parklands', 'open'),
       ((SELECT dog_id FROM Dogs WHERE name = 'Bella'), '2025-06-10 09:30:00', 45, 'Beachside Ave', 'accepted')
     `);
-})
+    })
 
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+    app.use('/', indexRouter);
+    app.use('/users', usersRouter);
 
-module.exports = app;
+    module.exports = app;
