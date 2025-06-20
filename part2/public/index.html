@@ -76,7 +76,7 @@
               throw new Error('Invalid credentials');
             }
             const data = await res.json();
-            sessionStorage.setItem('user', JSON.stringify(data));
+            sessionStorage.setItem('user', JSON.stringify(data.user));
             if (data.user.role === 'owner') {
               window.location.href = 'owner-dashboard.html';
             } else if (data.user.role === 'walker') {
