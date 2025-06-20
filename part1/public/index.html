@@ -8,7 +8,19 @@
 
 <body>
     <div id="app">
-        
+        <h1>WELCOME TO DOG OF THE DAY!!!</h1>
+          <button @click="getDog">PRESS HERE IMMEDIATELY</button>
+
+    <div class="dog-section" v-if="dogImg">
+      <img :src="dogImg" alt="">
+      <div>
+        <h2>DOG OF THE DAY!!!</h2>
+        <p>Name: Barky McBarkface</p>
+        <p>Breed: Unknown</p>
+        <p>Rating: 100/10</p>
+      </div>
+    </div>
+  </div>
     </div>
 </body>
 </html>
