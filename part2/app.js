@@ -12,16 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(session({
-    secret: 'dog_walk_service_secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }
-}));
-
 let db;
-
-var userRoutes = require('./routes/userRoutes');
 
 (async () => {
     try {
@@ -40,8 +31,6 @@ var userRoutes = require('./routes/userRoutes');
             password: '',
             database: 'DogWalkService'
         });
-
-        app.set('db', db);
 
         await db.execute(`
       CREATE TABLE IF NOT EXISTS Users (
@@ -124,13 +113,6 @@ var userRoutes = require('./routes/userRoutes');
         console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
     }
 })();
-
-app.use((req, res, next) => {
-    req.db = db;
-    next();
-});
-
-app.use('/api/users', userRoutes);
 
 app.get('/api/dogs', async (req, res) => {
     try {
