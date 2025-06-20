@@ -114,21 +114,21 @@ let db;
 })();
 
 app.get('/api/dogs', async (req, res) => {
-  try {
-    const [rows] = await db.execute(`
+    try {
+        const [rows] = await db.execute(`
       SELECT d.name AS dog_name, d.size, u.username AS owner_username
       FROM Dogs d
       JOIN Users u ON d.owner_id = u.user_id
     `);
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch dogs' });
-  }
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch dogs' });
+    }
 });
 
 app.get('/api/walkrequests/open', async (req, res) => {
-  try {
-    const [rows] = await db.execute(`
+    try {
+        const [rows] = await db.execute(`
       SELECT wr.request_id, d.name AS dog_name, wr.requested_time,
              wr.duration_minutes, wr.location, u.username AS owner_username
       FROM WalkRequests wr
@@ -136,15 +136,15 @@ app.get('/api/walkrequests/open', async (req, res) => {
       JOIN Users u ON d.owner_id = u.user_id
       WHERE wr.status = 'open'
     `);
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch open walk requests' });
-  }
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch open walk requests' });
+    }
 });
 
 app.get('/api/walkers/summary', async (req, res) => {
-  try {
-    const [rows] = await db.execute(`
+    try {
+        const [rows] = await db.execute(`
       SELECT
         u.username AS walker_username,
         COUNT(r.rating_id) AS total_ratings,
@@ -160,15 +160,12 @@ app.get('/api/walkers/summary', async (req, res) => {
       WHERE u.role = 'walker'
       GROUP BY u.user_id
     `);
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch walker summary' });
-  }
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch walker summary' });
+    }
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 module.exports = app;
