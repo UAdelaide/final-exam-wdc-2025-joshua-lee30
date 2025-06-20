@@ -52,7 +52,7 @@
             <h5 class="card-title">Request #{{ walk.request_id }}</h5>
             <p class="card-text">
               <strong>Dog:</strong> {{ walk.dog_name }} ({{ walk.size }})<br>
-              <strong>Date:</strong> {{ new Date(walk.requested_time).toLocaleString() }}<br>
+              <strong>Date:</strong> {{ parseLocalDateTime(walk.requested_time).toLocaleString() }}<br>
               <strong>Duration:</strong> {{ walk.duration_minutes }} minutes<br>
               <strong>Location:</strong> {{ walk.location }}<br>
               <strong>Status:</strong> {{ walk.status }}
