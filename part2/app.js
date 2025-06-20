@@ -166,7 +166,9 @@ app.get('/api/walkers/summary', async (req, res) => {
     }
 });
 
-app.post('/api/login', async (req, res))
+app.post('/api/login', async (req, res) => {
+    const { username, password }
+})
 
 app.use(express.static(path.join(__dirname, 'public')));
 
