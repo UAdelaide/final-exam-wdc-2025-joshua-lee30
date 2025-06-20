@@ -86,7 +86,27 @@
             this.error = err.message;
           }
         }
+      },
+      async mounted() {
+        try {
+          const dogRes = await fetch('/api/dogs');
+          const dogData = await dogRes.json();
+
+          const dogsWithPhotos = await Promise.all(dogData.map(async dog => {
+            const imgRes = await fetch('https://dog.ceo/api/breeds/image/random');
+            const imgData = await imgRes.json();
+            return {
+              ...dog,
+              photo: imgData.message
+            };
+          }));
+
+          this.dogs = dogsWithPhotos;
+        } catch (err) {
+          console.error('Failed to load dogs:', err);
+        }
       }
+
     }).mount('#app');
   </script>
 
