@@ -21,6 +21,8 @@ app.use(session({
 
 let db;
 
+var userRoutes = require('./routes/userRoutes');
+
 (async () => {
     try {
         const connection = await mysql.createConnection({
