@@ -41,6 +41,8 @@ var userRoutes = require('./routes/userRoutes');
             database: 'DogWalkService'
         });
 
+        app.set('db', db);
+
         await db.execute(`
       CREATE TABLE IF NOT EXISTS Users (
         user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -122,6 +124,11 @@ var userRoutes = require('./routes/userRoutes');
         console.error('Error setting up database. Ensure Mysql is running: service mysql start', err);
     }
 })();
+
+app.use((req, res, next) => {
+    req.db = db;
+    next();
+});
 
 app.get('/api/dogs', async (req, res) => {
     try {
