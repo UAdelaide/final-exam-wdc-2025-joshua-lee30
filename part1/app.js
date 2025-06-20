@@ -99,13 +99,18 @@ let db;
       ((SELECT dog_id FROM Dogs WHERE name = 'Max'), '2025-06-10 08:00:00', 30, 'Parklands', 'open'),
       ((SELECT dog_id FROM Dogs WHERE name = 'Bella'), '2025-06-10 09:30:00', 45, 'Beachside Ave', 'accepted')
     `);
-    
+
+        console.log('Database setup complete.');
+    } catch (err) {
+        console.error('Error setting up database:', err);
+    }
+})();
 
 
 
-    app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
-    app.use('/', indexRouter);
-    app.use('/users', usersRouter);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
-    module.exports = app;
+module.exports = app;
