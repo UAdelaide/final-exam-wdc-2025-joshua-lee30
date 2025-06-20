@@ -9,7 +9,7 @@
 <body>
     <div id="app">
         <h1>WELCOME TO DOG OF THE DAY!!!</h1>
-          <button @click="getDog">PRESS HERE IMMEDIATELY</button>
+          <button type="button" @click="getDog">PRESS HERE IMMEDIATELY</button>
 
     <div class="dog-section" v-if="dogImg">
       <img :src="dogImg" alt="">
@@ -20,7 +20,6 @@
         <p>Rating: 100/10</p>
       </div>
     </div>
-  </div>
     </div>
 </body>
 </html>
