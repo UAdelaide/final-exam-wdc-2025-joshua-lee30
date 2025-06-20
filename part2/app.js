@@ -122,6 +122,17 @@ let db;
     }
 })();
 
+app.use('/api', (req, res, next) => {
+  if (db) {
+    req.db = db;
+    next();
+  } else {
+    res.status(500).json({ error: 'Database not initialized' });
+  }
+});
+
+app.use('/api', userRoutes);
+
 app.get('/api/dogs', async (req, res) => {
   try {
     const [rows] = await db.execute(`
