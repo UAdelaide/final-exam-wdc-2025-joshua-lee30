@@ -61,6 +61,7 @@ router.post('/logout', (req, res) => {
       console.error('Error destroying session:', err);
       return res.status(500).json({ error: 'Logout failed' });
     }
+    console.log('Session destroyed successfully');
     res.clearCookie('connect.sid');
     res.json({ message: 'Logged out successfully' });
   });
