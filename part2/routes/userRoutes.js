@@ -35,7 +35,7 @@ router.get('/me', (req, res) => {
   res.json(req.session.user);
 });
 
-// POST login (dummy version)
+// POST login
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -55,15 +55,21 @@ router.post('/login', async (req, res) => {
     res.cookie('expiresAt', new Date().toString());
 
     res.json({ message: 'Logged in', username });
+  } catch (error) {
+    res.status(500).json({ error: 'Login failed' });
   }
 });
 
+// POST logout
 router.post('/logout', (req, res) => {
   res.clearCookie('name');
   res.clearCookie('expiresAt');
   req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json({ error: 'Logout failed' });
+    }
     res.json({ message: 'Logged out' });
   });
-}
+});
 
-  module.exports = router;
+module.exports = router;
