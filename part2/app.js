@@ -122,28 +122,39 @@ let db;
     }
 })();
 
+app.use('/api', (req, res, next) => {
+    if (db) {
+        req.db = db;
+        next();
+    } else {
+        res.status(500).json({ error: 'Database not initialized' });
+    }
+});
+
+app.use('/api', userRoutes);
+
 app.get('/api/dogs', async (req, res) => {
     try {
         const [rows] = await db.execute(`
-      SELECT d.name AS dog_name, d.size, u.username AS owner_username
+      SELECT d.dog_id, d.name AS dog_name, d.size, d.owner_id
       FROM Dogs d
-      JOIN Users u ON d.owner_id = u.user_id
     `);
         res.json(rows);
     } catch (err) {
+        console.error('Failed to fetch dogs:', err);
         res.status(500).json({ error: 'Failed to fetch dogs' });
     }
 });
 
-app.get('/api/walkrequests/open', async (req, res) => {
+app.get('/api/walks', async (req, res) => {
     try {
         const [rows] = await db.execute(`
-      SELECT wr.request_id, d.name AS dog_name, wr.requested_time,
-             wr.duration_minutes, wr.location, u.username AS owner_username
-      FROM WalkRequests wr
-      JOIN Dogs d ON wr.dog_id = d.dog_id
-      JOIN Users u ON d.owner_id = u.user_id
-      WHERE wr.status = 'open'
+SELECT wr.request_id, d.name AS dog_name, d.size,
+       wr.requested_time, wr.duration_minutes, wr.location, wr.status,
+       u.username AS owner_username
+FROM WalkRequests wr
+JOIN Dogs d ON wr.dog_id = d.dog_id
+JOIN Users u ON d.owner_id = u.user_id
     `);
         res.json(rows);
     } catch (err) {
