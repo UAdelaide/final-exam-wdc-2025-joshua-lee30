@@ -54,10 +54,7 @@ router.post('/login', async (req, res) => {
     res.cookie('name', username);
     res.cookie('expiresAt', new Date().toString());
 
-    res.json({ message: 'Login successful', username });
-  } catch (error) {
-    res.status(500).json({ error: 'Login failed' });
-  }
+    res.json({ message: 'Logged in', username });
 });
 
 router.post('/logout', (req, res) => {
