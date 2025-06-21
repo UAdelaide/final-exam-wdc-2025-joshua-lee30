@@ -55,9 +55,7 @@ router.post('/login', async (req, res) => {
     res.cookie('expiresAt', new Date().toString());
 
     res.json({ message: 'Logged in', username });
-  } catch (error) {
-    res.status(500).json({ error: 'Login failed' });
-  }
+
 });
 
 // POST logout
@@ -65,9 +63,6 @@ router.post('/logout', (req, res) => {
   res.clearCookie('name');
   res.clearCookie('expiresAt');
   req.session.destroy(err => {
-    if (err) {
-      return res.status(500).json({ error: 'Logout failed' });
-    }
     res.json({ message: 'Logged out' });
   });
 });
