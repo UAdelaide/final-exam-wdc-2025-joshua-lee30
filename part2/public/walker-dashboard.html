@@ -55,7 +55,6 @@
             const res = await fetch('/api/me');
             if (!res.ok) throw new Error('Failed to get current user');
             const userData = await res.json();
-            console.log('User data from /me:', userData);
             return userData.user_id;
           } catch (err) {
             error.value = err.message;
@@ -85,7 +84,6 @@
               body: JSON.stringify({ walker_id: currentUserId })
             });
             const result = await res.json();
-
             if (!res.ok) throw new Error(result.error || 'Application failed');
             message.value = result.message;
             error.value = '';
