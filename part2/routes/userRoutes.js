@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
     res.cookie('name', username);
     res.cookie('expiresAt', new Date().toString());
 
-    res.json(user);
+    res.json(data.user);
   } catch (error) {
     res.status(500).json({ error: 'Login failed' });
   }
