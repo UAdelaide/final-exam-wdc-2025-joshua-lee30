@@ -46,12 +46,12 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    req.session.user = username;
+    const user = rows[0];
 
     res.cookie('name', username);
     res.cookie('expiresAt', new Date().toString());
 
-    res.json({ message: 'Login successful', user: rows[0] });
+    res.json({ message: 'Login successful', req.session.user });
   } catch (error) {
     res.status(500).json({ error: 'Login failed' });
   }
