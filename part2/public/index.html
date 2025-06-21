@@ -53,6 +53,7 @@
               throw new Error('Invalid credentials');
             }
             const data = await res.json();
+            
             sessionStorage.setItem('user', JSON.stringify(data));
             if (user.role === 'owner') {
               window.location.href = 'owner-dashboard.html';
