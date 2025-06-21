@@ -5,6 +5,7 @@ var logger = require('morgan');
 var mysql = require('mysql2/promise');
 var session = require('express-session');
 var userRoutes = require('./routes/userRoutes');
+var walkRoutes = require()
 
 var app = express();
 
@@ -132,7 +133,7 @@ app.use('/api', (req, res, next) => {
 });
 
 app.use('/api', userRoutes);
-app.use('/api/walks', walk)
+app.use('/api/walks', walkRoutes);
 
 app.get('/api/dogs', async (req, res) => {
     try {
