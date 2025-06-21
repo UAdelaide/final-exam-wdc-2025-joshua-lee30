@@ -56,7 +56,7 @@
             sessionStorage.setItem('user', JSON.stringify(data));
             if (data.user.role === 'owner') {
               window.location.href = 'owner-dashboard.html';
-            } else if (user.role === 'walker') {
+            } else if (data.user.role === 'walker') {
               window.location.href = 'walker-dashboard.html';
             }
           } catch (err) {
