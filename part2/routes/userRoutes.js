@@ -69,4 +69,18 @@ router.post('/logout', (req, res) => {
   });
 });
 
+router.get('/dogs/mine', async (req, res) => {
+  if (!req.session.user) return res.status(401).json({ error: 'Not logged in' });
+
+  try {
+    const [dogs] = await db.query(
+      'SELECT dog_id, name FROM Dogs WHERE owner_id = (SELECT user_id FROM Users WHERE username = ?)',
+      [req.session.user]
+    );
+    res.json(dogs);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch your dogs' });
+  }
+});
+
 module.exports = router;
