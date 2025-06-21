@@ -131,7 +131,7 @@ app.use('/api', (req, res, next) => {
     }
 });
 
-app.use('/api', userRoutes);
+app.use('/api/users', userRoutes);
 
 app.get('/api/dogs', async (req, res) => {
     try {
