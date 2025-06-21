@@ -81,14 +81,8 @@
         }
 
         function logout() {
-          fetch('/api/logout', { method: 'POST' })
-            .then(() => {
-              sessionStorage.removeItem('user');
-              window.location.href = 'login.html';
-            })
-            .catch(() => {
-              alert('Logout failed');
-            });
+          sessionStorage.removeItem('user');
+          window.location.href = 'index.html';
         }
 
         onMounted(() => {
