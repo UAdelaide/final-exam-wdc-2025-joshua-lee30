@@ -55,6 +55,7 @@ router.post('/login', async (req, res) => {
     res.cookie('expiresAt', new Date().toString());
 
     res.json({ message: 'Logged in', username });
+}
 });
 
 router.post('/logout', (req, res) => {
