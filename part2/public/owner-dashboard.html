@@ -23,10 +23,15 @@
         Create New Walk Request
       </div>
       <div class="card-body">
-        <form @submit.prevent="submitWalkRequest">
+        <form @submit.prevent="submitWalkRequest" class="mb-4" style="max-width: 500px;">
           <div class="mb-3">
-            <label class="form-label">Dog ID</label>
-            <input v-model="form.dog_id" type="number" class="form-control" required>
+            <label for="dog" class="form-label">Select Your Dog</label>
+            <select v-model="selectedDogId" class="form-select" required>
+              <option disabled value="">-- Choose a dog --</option>
+              <option v-for="dog in dogs" :key="dog.dog_id" :value="dog.dog_id">
+                {{ dog.name }}
+              </option>
+            </select>
           </div>
           <div class="mb-3">
             <label class="form-label">Requested Date & Time</label>
