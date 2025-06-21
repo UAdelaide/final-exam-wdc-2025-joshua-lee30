@@ -88,6 +88,8 @@ let db;
     ('alice123', 'alice@example.com', 'hashed123', 'owner'),
     ('bobwalker', 'bob@example.com', 'hashed456', 'walker'),
     ('carol123', 'carol@example.com', 'hashed789', 'owner')
+      ('marcus16', 'marcus@example.com', 'hashed101', 'walker'),
+     ('joshowner', 'josh@example.com', 'hashed202', 'owner')
   `);
         }
 
