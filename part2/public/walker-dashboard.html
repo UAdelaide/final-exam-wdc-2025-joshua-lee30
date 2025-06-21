@@ -75,10 +75,13 @@
 
         async function applyToWalk(requestId) {
           try {
+            const currentUserId = await getCurrentUser();
+            if (!currentUserId) throw new Error('No current user ID available');
+
             const res = await fetch(`/api/walks/${requestId}/apply`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ walker_id: user })
+              body: JSON.stringify({ walker_id: currentUserId })
             });
             const result = await res.json();
 
@@ -91,6 +94,7 @@
             message.value = '';
           }
         }
+
 
 
         function logout() {
