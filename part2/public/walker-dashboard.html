@@ -56,7 +56,7 @@
             if (!res.ok) throw new Error('Failed to get current user');
             const userData = await res.json();
             console.log('User data from /me:', userData);
-            return userData.user_id;
+            return userData;
           } catch (err) {
             error.value = err.message;
             return null;
