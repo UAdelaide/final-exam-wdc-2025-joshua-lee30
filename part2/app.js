@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(session({
     secret: 'dogwalk-secret',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: { secure: false }
 }));
 
