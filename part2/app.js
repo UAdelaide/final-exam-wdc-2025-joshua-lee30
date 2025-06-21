@@ -148,22 +148,6 @@ app.get('/api/dogs', async (req, res) => {
     }
 });
 
-app.get('/api/walks', async (req, res) => {
-    try {
-        const [rows] = await db.execute(`
-SELECT wr.request_id, d.name AS dog_name, d.size,
-       wr.requested_time, wr.duration_minutes, wr.location, wr.status,
-       u.username AS owner_username
-FROM WalkRequests wr
-JOIN Dogs d ON wr.dog_id = d.dog_id
-JOIN Users u ON d.owner_id = u.user_id
-    `);
-        res.json(rows);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch open walk requests' });
-    }
-});
-
 app.get('/api/walkers/summary', async (req, res) => {
     try {
         const [rows] = await db.execute(`
